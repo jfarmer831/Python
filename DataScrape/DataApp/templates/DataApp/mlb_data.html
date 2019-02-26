@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}| MLB{% endblock %}
+
+{% block content %}
+
+<h2>Next 5 Events for the {{ mlb.team }} MLB Team</h2>
+<table>
+  <thead>
+    <th>Date</th>
+    <th>Event</th>
+  </thead>
+  <tbody>
+    {% for event in mlb.events %}
+      <tr>
+        <!-- Note that event is a dictionary, and part of Django's template language is that the values of a dictionary are accessed with dot notation rather than bracket notation. -->
+        <td>{{ event.date }}</td>
+        <td>{{ event.name }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<img src={{ mlb.team_logo_url }} alt="">
+
+{% endblock %}

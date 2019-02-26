@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+ <!-- here we are saying that we will be rendering our content inside of the base.html template -->
+
+{% block title %}|Inbox{% endblock %} <!-- This will appear in the browser tab -->
+
+{% block content %} <!-- block content defines where the content will be rendered on the page according to where we placed the same tags in the body of base.html-->
+      
+{% csrf_token %} <!-- cross-site request forgery protection functionality is available because our function in views.py returns a render method -->
+<h2 style="color:crimson"> Welcome! You have mail!</h2><br><br><br>
+
+<content style="font-size: 1.5em; ">
+    <ol>
+    {% for item in messages %}
+        <li><a href="{{ item.id }}">Subject: ({{ item.msg_sub }})
+           | Date: {{ item.datesent}} |
+            From: {{ item.sender_id  }} ~ To: {{item.reciever_id}} 
+           </a><br>
+        </li>
+    
+    </ol>                             
+    {% endfor %}
+</content>   
+{% endblock %} 

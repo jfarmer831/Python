@@ -1,0 +1,98 @@
+{% extends 'base.html' %} <!-- here we are saying that we will be rendering our content inside of the base.html template -->
+
+{% block title %}| Register{% endblock %} <!-- This will appear in the browser tab -->
+
+{% block content %} <!-- block content defines where the content will be rendered on the page according to where we placed the same tags in the body of base.html-->
+<h2>Hello from register page!</h2>
+
+
+<form action="{% url 'register' %}" method="POST"> <!-- our action method references the register method that will called when we submit this form -->
+
+    <!-- cross-site request forgery protection functionality is available because our function in views.py returns a render method (I think?) -->
+    {% csrf_token %} 
+
+    <!-- each input field name attribute will be referenced in the views function -->
+    <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" required>
+    </div>
+
+    <div>
+        <label for="first_name">First name</label>
+        <input type="text" name="first_name" required>
+    </div>
+
+    <div>
+        <label for="last_name">Last name</label>
+        <input type="text" name="last_name" required>
+    </div>
+
+    <div>
+        <label for="email">Email</label>
+        <input type="email" name="email" required>
+    </div>
+
+    <div>
+        <label for="password">Password</label>
+        <input type="password" name="password" required>
+    </div>
+
+    <div>
+        <label for="city">City</label>
+        <input type="text" name="city" required>
+    </div>
+
+    <div>
+        <label for="state">State</label>
+        <select name="state" class="form-control">
+        <option selected="true" disabled="disabled">Select a state</option>
+            {% for key, value in state_choices.items %} <!-- Refers to the key : value pairs we defined in choices.py -->
+                <!-- we're able to access these because we passed our context object into the render request for the register page -->
+                <!-- our request.POST method will take the value attribute from the option tag, so we can set it to be whatever the key is for the value displayed to the user (a little confusing) -->
+                <!-- for example, 'Washington' is the selected option displayed to the user, but it will be stored as WA in the database -->
+                <option value="{{ key }}" {% if key == value.state %} selected {% endif %}>{{ value }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <div>
+        <label for="zipcode">Zip Code</label>
+        <input type="text" pattern="[0-9]{5}" name="zipcode" required>
+    </div>
+    <!-- Displays a drop down list for user to select a favorite NHL team -->
+    <div>
+        <fieldset>
+            <label for="favorite_nhl_team">Favorite NHL Team</label>
+                <select id = "favorite_nhl_team" name="favorite_nhl_team">
+                    {% for i in nhl_team_name_list %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+        </fieldset>
+    </div>
+    <!-- Displays a drop down list for user to select a favorite MLB team -->
+    <div>
+        <fieldset>
+            <label for="favorite_mlb_team">Favorite MLB Team</label>
+                <select id = "favorite_mlb_team" name="favorite_mlb_team">
+                    {% for i in mlb_team_name_list %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+        </fieldset>
+    </div>
+    <!-- Displays a drop down list for user to select a favorite NBA team -->
+    <div>
+        <fieldset>
+            <label for="favorite_nba_team">Favorite NBA Team</label>
+                <select id = "favorite_nba_team" name="favorite_nba_team">
+                    {% for i in nba_team_name_list %}
+                    <option value="{{ i }}">{{ i }}</option>
+                    {% endfor %}
+                </select>
+        </fieldset>
+    </div>
+
+    <input type="submit" value="Register"></button>
+</form>
+{% endblock %}

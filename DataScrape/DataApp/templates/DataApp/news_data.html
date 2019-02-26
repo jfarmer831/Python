@@ -1,0 +1,22 @@
+{% extends 'base.html' %} <!-- here we are saying that we will be rendering our content inside of the base.html template -->
+
+{% block title %}| News{% endblock %} <!-- This will appear in the browser tab -->
+
+{% block content %} <!-- block content defines where the content will be rendered on the page according to where we placed the same tags in the body of base.html-->
+<h1>Today's Top Three Stories from The Verge</h1>
+         
+{% for item in news.all_list %}
+        <div>
+            <h3 style="background-color: cadetblue"  > {{ item.0 }} </h3><br> <!-- article title -->
+            <a href={{ item.1 }}>                                            <!-- article link -->
+                <img src={{ item.2 }} style="width:500px; height:auto;" ></img>  <!-- article img -->
+            </a>     
+        </div>
+        <br>
+    {% endfor %}
+
+{% endblock %} 
+
+
+
+

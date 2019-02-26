@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+<!doctype html>
+<html>
+    <head>
+        <title>{% block title %}| Top Podcasts {% endblock %}</title>
+    </head>
+    <body>
+        {% block content %}
+
+        <h2>Current Top 10 Podcasts on iTunes (US)</h2>
+
+            <table>
+                <thead>
+                    <th>Rank</th>
+                    <th>Name</th>
+                </thead>
+                <tbody>
+                    {% for podcast in podcast_data.top_podcasts %}
+                        <tr>
+                            <td>
+                                <!-- Django variable for the current iteration of the loop, starting at 1 -->
+                                {{ forloop.counter }}
+                            </td>
+                            <td>
+                                {{ podcast }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+        {% endblock %}
+    </body>
+</html>
