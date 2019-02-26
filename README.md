@@ -1,3 +1,4 @@
 # Python
-Python programming projects
-for Project DataScrape I completed the NewsScraper and Message App.
+Python programming projects.
+
+For Project DataScrape I completed the NewsScraper Application and Message Application.
